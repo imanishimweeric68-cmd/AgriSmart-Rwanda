@@ -1,0 +1,163 @@
+body {
+    background: red !important;
+}
+
+/* Navigation */
+header {
+    background: #2e7d32;
+    padding: 20px 40px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav h1 {
+    color: white;
+    margin: 0;
+    font-size: 28px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 10px 0 0 0;
+    padding: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(to right, #4caf50, #2e7d32);
+    color: white;
+}
+
+.hero h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #2e7d32;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #1b5e20;
+}
+
+/* Products Section */
+.products {
+    padding: 60px 20px;
+    background: #f8fff8;
+}
+
+.products h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #2e7d32;
+    margin-bottom: 40px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    border-left: 4px solid #2e7d32;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+
+
+.card h3 {
+    margin-top: 0;
+}
+
+
+.card h3 a {
+    text-decoration: none;
+    color: #1b5e20;
+    font-size: 18px;
+    font-weight: bold;
+}
+.card p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff9800;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    background: #1b5e20;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}.product-detail {
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.product-detail h1 {
+    color: #2e7d32;
+}
+
+.description {
+    margin: 20px 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.product-detail .price {
+    font-size: 22px;
+    color: #ff9800;
+    font-weight: bold;
+}

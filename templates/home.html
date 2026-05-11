@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero">
+    <h2>Connecting Farmers to Markets</h2>
+    <p>Buy and sell agricultural products across Rwanda.</p>
+    <a href="#products" class="btn">Explore Products</a>
+</section>
+
+<section class="products" id="products">
+    <h2>Available Products</h2>
+
+    <div class="product-grid">
+
+        {% for product in products %}
+        <div class="card">
+
+            <h3>
+                <a href="/product/{{ product.id }}/">
+                    {{ product.name }}
+                </a>
+            </h3>
+
+            <p>{{ product.description }}</p>
+
+            <div class="price">
+                {{ product.price }} RWF
+            </div>
+
+            <a class="btn" href="/product/{{ product.id }}/">
+                View Details
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}
