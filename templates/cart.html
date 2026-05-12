@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if error %}
+    <p style="color:red;">{{ error }}</p>
+{% endif %}
+
+{% if cart_items %}
+    {% for item in cart_items %}
+        <div style="border:1px solid #ccc; padding:15px; margin-bottom:15px;">
+            <h3>{{ item.product.name }}</h3>
+            <p>Qty: {{ item.quantity }}</p>
+            <p>Total: {{ item.total_price }} RWF</p>
+
+            <a href="/cart/add/{{ item.product.id }}/">+</a>
+            <a href="/cart/decrease/{{ item.product.id }}/">-</a>
+            <a href="/cart/remove/{{ item.product.id }}/">Remove</a>
+        </div>
+    {% endfor %}
+
+    <h2>Total: {{ total }} RWF</h2>
+
+    <a href="/checkout/"
+       style="background:green; color:white; padding:10px 20px; text-decoration:none;">
+        Checkout
+    </a>
+
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}
