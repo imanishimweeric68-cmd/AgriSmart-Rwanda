@@ -106,10 +106,10 @@ WSGI_APPLICATION = 'agrismart.wsgi.application'
 # --------------------------------------------------
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600
     )
 }
-
 
 # --------------------------------------------------
 # PASSWORD VALIDATION
@@ -144,6 +144,7 @@ USE_TZ = True
 # --------------------------------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # WhiteNoise static file storage
 STORAGES = {
