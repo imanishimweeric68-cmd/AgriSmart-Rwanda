@@ -92,18 +92,15 @@ WSGI_APPLICATION = 'agrismart.wsgi.application'
 
 # --------------------------------------------------
 # DATABASE
-# - Uses PostgreSQL on Render via DATABASE_URL
-# - Falls back to SQLite locally if DATABASE_URL is absent
+# Uses Render PostgreSQL via DATABASE_URL
+# Falls back to SQLite for local development
 # --------------------------------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # --------------------------------------------------
