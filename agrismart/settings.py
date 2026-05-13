@@ -13,18 +13,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 
 # SECRET KEY
-# Render Environment Variable:
-# NAME = SECRET_KEY
-# VALUE = your secret key
 SECRET_KEY = os.getenv(
     "SECRET_KEY",
     "django-insecure-local-development-only-change-this"
 )
 
-DEBUG = False
+# DEBUG MODE
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
+# ALLOWED HOSTS
 ALLOWED_HOSTS = ["agrismart-rwanda.onrender.com"]
-
 
 # --------------------------------------------------
 # APPLICATIONS
