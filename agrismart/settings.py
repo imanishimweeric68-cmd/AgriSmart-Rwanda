@@ -21,18 +21,9 @@ SECRET_KEY = os.getenv(
     "django-insecure-local-development-only-change-this"
 )
 
-# DEBUG
-# Render Environment Variable:
-# NAME = DEBUG
-# VALUE = False
-DEBUG = os.getenv("DEBUG", "False") == "True"
+DEBUG = False
 
-# ALLOWED HOSTS
-ALLOWED_HOSTS = [
-    "agrismart-rwanda.onrender.com",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ["agrismart-rwanda.onrender.com"]
 
 
 # --------------------------------------------------
@@ -105,10 +96,14 @@ WSGI_APPLICATION = 'agrismart.wsgi.application'
 # - Falls back to SQLite locally if DATABASE_URL is absent
 # --------------------------------------------------
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
+    }
 }
 
 # --------------------------------------------------
