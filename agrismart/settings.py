@@ -1,18 +1,43 @@
 from pathlib import Path
+import os
+import dj_database_url
 
+# --------------------------------------------------
+# BASE DIRECTORY
+# --------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-change-this-key'
+# --------------------------------------------------
+# SECURITY SETTINGS
+# --------------------------------------------------
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# SECRET KEY
+# Render Environment Variable:
+# NAME = SECRET_KEY
+# VALUE = your secret key
+SECRET_KEY = os.getenv(
+    "SECRET_KEY",
+    "django-insecure-local-development-only-change-this"
+)
 
-ALLOWED_HOSTS = ["*"]
+# DEBUG
+# Render Environment Variable:
+# NAME = DEBUG
+# VALUE = False
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+# ALLOWED HOSTS
+ALLOWED_HOSTS = [
+    "agrismart-rwanda.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 
+# --------------------------------------------------
 # APPLICATIONS
+# --------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,15 +46,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # your apps
+    # Your apps
     'core',
     'marketplace',
 ]
 
 
-# MIDDLEWARE (CRITICAL)
+# --------------------------------------------------
+# MIDDLEWARE
+# --------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -39,12 +67,15 @@ MIDDLEWARE = [
 ]
 
 
+# --------------------------------------------------
+# URL CONFIGURATION
+# --------------------------------------------------
 ROOT_URLCONF = 'agrismart.urls'
 
 
+# --------------------------------------------------
 # TEMPLATES
-import os
-
+# --------------------------------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -62,19 +93,27 @@ TEMPLATES = [
 ]
 
 
+# --------------------------------------------------
+# WSGI
+# --------------------------------------------------
 WSGI_APPLICATION = 'agrismart.wsgi.application'
 
 
-# DATABASE (default SQLite)
+# --------------------------------------------------
+# DATABASE
+# - Uses PostgreSQL on Render via DATABASE_URL
+# - Falls back to SQLite locally if DATABASE_URL is absent
+# --------------------------------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    )
 }
 
 
+# --------------------------------------------------
 # PASSWORD VALIDATION
+# --------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -91,18 +130,47 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# --------------------------------------------------
 # INTERNATIONALIZATION
+# --------------------------------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
 
+# --------------------------------------------------
 # STATIC FILES
+# --------------------------------------------------
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# WhiteNoise static file storage
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
+
+# --------------------------------------------------
+# DEFAULT PRIMARY KEY FIELD TYPE
+# --------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# --------------------------------------------------
+# AUTHENTICATION REDIRECTS
+# --------------------------------------------------
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# --------------------------------------------------
+# SECURITY SETTINGS FOR PRODUCTION
+# --------------------------------------------------
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
