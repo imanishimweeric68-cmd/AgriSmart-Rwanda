@@ -23,9 +23,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "agrismart-rwanda.onrender.com",
     "localhost",
-    "127.0.0.1",
+    "127.0.0.1"
 ]
-
 
 # --------------------------------------------------
 # APPLICATIONS
@@ -162,9 +161,15 @@ LOGOUT_REDIRECT_URL = "/"
 # --------------------------------------------------
 # SECURITY SETTINGS FOR PRODUCTION
 # --------------------------------------------------
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     USE_X_FORWARDED_HOST = True
-    SESSION_COOKIE_SECURE = False
-    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://agrismart-rwanda.onrender.com",
+]
