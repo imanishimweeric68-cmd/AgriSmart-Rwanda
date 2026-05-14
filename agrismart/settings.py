@@ -164,6 +164,7 @@ LOGOUT_REDIRECT_URL = "/"
 # --------------------------------------------------
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    USE_X_FORWARDED_HOST = True
+    SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
     SECURE_SSL_REDIRECT = True
