@@ -18,7 +18,7 @@ SECRET_KEY = os.getenv(
 
 # Local development uses DEBUG=True unless overridden.
 # On Render, set environment variable DEBUG=False.
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "agrismart-rwanda.onrender.com",
